@@ -11,6 +11,7 @@ from assets.base.soundplayer import SoundPlayer
 from src.core.Cam import *
 from assets.base.pj import *
 from assets.base.plataforma import *
+from assets.base.obstaculo import *
 
 contador = 0
 
@@ -18,17 +19,24 @@ plataformas = []
 
 mono = PJ(16,16,"chango")
 spri = Spritebatch("assets/sprites/player/player.png",(0,0,0))
+sprig = Spritebatch("assets/sprites/player/playergray.png",(0,0,0))
+print(spri)
+mono.load_Sheet(spri,4,8)
 plataforma1 = plataforma(256,2,0,100,"p",5,[mono],spri,4,8)
 
 for i in range(10):
     plataformas.append(plataforma(64,2,random.randint(1, 256),random.randint(-1000, -120),"p",5,[mono],spri,4,8))
     mono.load_Sheet(spri,4,8)
 
+fruta = obstacChiste(16,16,"chiste",1,[mono])
+fruta.load_Sheet(sprig,4,8)
+
 cam = Cam(0,0,256,240)
 
 RenderGroup = pygame.sprite.Group()
 RenderGroupP = pygame.sprite.Group()
 RenderGroup.add(mono)
+RenderGroup.add(fruta)
 
 # RENDERIZADO DE PLATAFORMAS
 

@@ -8,9 +8,11 @@ class plataformaMini(Char):
         self.Lista = Lista
 
     def VSChar(self,char):
-        c = self.rect.colliderect(char.rect)
-        print(self.rect,char.rect,c)
-        return c
+        if((char.gy+char.salto)<=0):
+            return False;
+        c = self.rect.colliderect(char.rect);
+#        print(self.rect,char.rect,c);
+        return c;
 
     def update(self):
         self.update_internals_pre()
