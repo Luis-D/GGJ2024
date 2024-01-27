@@ -21,7 +21,7 @@ spri = Spritebatch("assets/sprites/player/player.png",(0,0,0))
 plataforma1 = plataforma(256,2,0,100,"p",5,[mono],spri,4,8)
 
 for i in range(10):
-    plataformas.append(plataforma(64,2,0,-140,"p",5,[mono],spri,4,8))
+    plataformas.append(plataforma(64,2,random.randint(1, 256),random.randint(-1000, -120),"p",5,[mono],spri,4,8))
     mono.load_Sheet(spri,4,8)
 
 cam = Cam(0,0,256,240)
@@ -52,12 +52,9 @@ def Update(self):
     for plat in  plataformas:
         plat.imagen.y = plat.imagen.y + 1
         if plat.factor.y >= 140:
-            numero = random.randint(-1000, -120)
-            plat.imagen.y = numero
-
-        if plat.factor.x == 0:
-            plat.imagen.x = random.randint(1, 256)
-
+            numero = random.randint(-500, -120)
+            plat.imagen.y, plat.imagen.x = numero, random.randint(1, 256)
+            
         plat.update_fisico_pos()
     cam.LookAt(128,0)
     if(Controles.esc == True):
