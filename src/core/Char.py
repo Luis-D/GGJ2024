@@ -15,6 +15,7 @@ class Char(pygame.sprite.Sprite):
         self.anim_speed = 1;
         self.anims = {}
         self.cur_anim = None
+        self.images=[None]
 
     def set_images(self,images):
         self.images = images
