@@ -7,6 +7,8 @@ class obstacGenerico(Char):
         self.Factor = Factor
         self.Lista = Lista
         self.Acc = Acc
+        self.accel_timer = 0
+        self.gravedad = 0.5
 
     def VSChar(self,char):
         if((char.gy+char.salto)<=0):
@@ -18,10 +20,11 @@ class obstacGenerico(Char):
 
     def update(self):
         self.update_internals_pre();
-        self.vecy = Factor
-        for P in Lista:
-            if(VSChar(P)):
+        self.vecy = self.Factor*self.accel_timer*self.gravedad;
+        for P in self.Lista:
+            if(self.VSChar(P)):
                 self.Acc(P);
+        self.accel_timer += 0.2
         self.update_internals_pos();
 
 class obstacChiste(obstacGenerico):
@@ -30,5 +33,5 @@ class obstacChiste(obstacGenerico):
         Char.puntuacion+=100;
 
     def __init__(self,W,H,nombre,Factor,Lista):
-        super().__init__(self,W,H,nombre,Factor,Lista,self.Acc);
+        super().__init__(W,H,nombre,Factor,Lista,self.Acc);
 
