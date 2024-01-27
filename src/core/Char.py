@@ -27,6 +27,7 @@ class Char(pygame.sprite.Sprite):
                 print(str(w)+","+str(h))
                 arr.append(image.image_at(w*self.rect.width,h*self.rect.height,self.rect.width,self.rect.height))
         self.set_images(arr);
+        print("AAAH",arr)
 
     def set_anim(self,llave,imagesindexes,speed=1.0):
         self.anims[llave] = imagesindexes
@@ -34,6 +35,8 @@ class Char(pygame.sprite.Sprite):
         if(self.cur_anim == None):
             self.cur_anim = llave
 
+    def updateAnim(self):
+        pass
 
     def update_image(self):
         #self.image = self.images[self.cur_image]
@@ -51,7 +54,7 @@ class Char(pygame.sprite.Sprite):
           
         except Exception as e: 
             print(e)
-            self.image = None
+            self.image = self.images[0]
  
 
 

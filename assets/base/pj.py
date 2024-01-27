@@ -4,6 +4,7 @@ from src.core.Char import *
 class PJ(Char):
 
     def __init__(self,W,H,nombre):
+        super().__init__(W,H,nombre,"PJ");
         self.gravedad = 0.5
         self.mov_speed = 1
         self.accel_timer = 0;
@@ -15,6 +16,7 @@ class PJ(Char):
         self.accel_timer = 0
 
     def update(self):
+        print("ACTUALIZAR")
         self.update_internals_pre();
         self.puntuacion += (-self.vecy);
 

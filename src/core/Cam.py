@@ -16,7 +16,7 @@ class Cam:
 
 
 
-    def blit(self,image,coord):
+    def blit(self,image,coord,a,b):
         coord.update(coord.x-self.x,coord.y-self.y,coord.width,coord.height)
         self.surface.blit(image,coord); 
 
