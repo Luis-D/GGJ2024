@@ -4,6 +4,13 @@ from src.core.globalscope import *
 print("Uy")
 
 class Cam:
+
+    def getUpperBorder(self):
+        return self.y + (Global.H/2)-(self.h/2)
+
+    def getLowerBorder(self):
+        return self.y + (Global.H/2)+(self.h/2)
+
     def LookAt(self,x,y):
         self.x=x-(Global.W/2);
         self.y=y-(Global.H/2);
