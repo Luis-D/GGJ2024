@@ -20,17 +20,35 @@ print(spri)
 mono.load_Sheet(spri,4,8)
 cam = Cam(0,0,256,240)
 
-plat = plataforma(256,2,"p",4,[mono]);
+plat = plataforma(256,2,"p",0,[]);
 plat.y = 100
-plat.update_internals_pre();
-plat.load_Sheet(spri,256,8)
+plat.load_Sheet(spri,4,8)
+platF = plataforma(64,2,"p",5,[mono]);
+platF.y = 100
+platF.x = 0
+platF.update_internals_pos()
 
 
 RenderGroup = pygame.sprite.Group();
-RenderGroup.add(mono);
-
 RenderGroupP = pygame.sprite.Group();
-RenderGroupP.add(plat);
+RenderGroup.add(mono);
+RenderGroup.add(plat);
+
+
+RenderGroupP.add(platF);
+
+plat = plataforma(256,2,"p",0,[]);
+plat.y = 10
+plat.x = 70
+plat.load_Sheet(spri,4,8)
+
+platF = plataforma(64,2,"p",5,[mono]);
+platF.y = 10
+platF.x = 70
+platF.update_internals_pos()
+
+RenderGroup.add(plat);
+RenderGroupP.add(platF);
 
 def Draw(self):
     cam.surface.fill((0,50,200))

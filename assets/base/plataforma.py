@@ -8,7 +8,9 @@ class plataforma(Char):
         self.Lista = Lista;
 
     def VSChar(self,char):
-        return self.rect.colliderect(char.rect);
+        c = self.rect.colliderect(char.rect);
+        print(self.rect,char.rect,c);
+        return c;
 
     def update(self):
         self.update_internals_pre()

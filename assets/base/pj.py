@@ -13,6 +13,7 @@ class PJ(Char):
         self.salto = 0;
 
     def set_salto(self,factor):
+        print("NOOOO")
         self.salto = -factor
         self.accel_timer = 0
 
