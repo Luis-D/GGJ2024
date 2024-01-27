@@ -11,11 +11,13 @@ class PJ(Char):
         self.altitud = 0;
         self.puntuacion = 0;
         self.salto = 0;
+        self.gy = 0;
 
     def set_salto(self,factor):
         print("NOOOO")
         self.salto = -factor
         self.accel_timer = 0
+        self.gy = 0;
 
     def update(self):
         print("ACTUALIZAR")
@@ -28,7 +30,8 @@ class PJ(Char):
         self.puntuacion += (-self.vecy);
 
 
-        self.vecy = (self.vecy)+(self.accel_timer*self.gravedad)+self.salto;
+        self.gy = (self.accel_timer*self.gravedad);
+        self.vecy = self.gy + self.salto;
 
         self.update_internals_pos();
 

@@ -8,8 +8,10 @@ class plataforma(Char):
         self.Lista = Lista;
 
     def VSChar(self,char):
+        if((char.gy+char.salto)<=0):
+            return False;
         c = self.rect.colliderect(char.rect);
-        print(self.rect,char.rect,c);
+#        print(self.rect,char.rect,c);
         return c;
 
     def update(self):
