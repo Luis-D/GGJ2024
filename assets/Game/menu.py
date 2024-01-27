@@ -5,7 +5,6 @@ from src.core.functions import *
 from src.core.constants import *
 from src.core.spritesheets import *
 from src.core.Inputs import *
-from src.interfaces.menu import *
 from assets.base.soundplayer import SoundPlayer
 from src.core.Cam import *
 from assets.base.mandril import *
@@ -24,7 +23,7 @@ def Init():
 #    SoundPlayer.pooling(ASSETS_DIR+"sounds/menu.ogg")    
     pygame.event.wait()
     Global.timer = 120
-    Global.Draw = DrawBG
+    Global.Draw = Draw
     Global.Update = Update
     Global.height_t = 0
     Global.height_tt = 0

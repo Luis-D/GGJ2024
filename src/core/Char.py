@@ -20,6 +20,14 @@ class Char(pygame.sprite.Sprite):
         self.images = images
         self.cur_image = 0
 
+    def load_Sheet(self,image,W,H):
+        arr = []
+        for h in range(H):
+            for w in range(W):
+                print(str(w)+","+str(h))
+                arr.append(image.image_at(w*self.rect.width,h*self.rect.height,self.rect.width,self.rect.height))
+        self.set_images(arr);
+
     def set_anim(self,llave,imagesindexes,speed=1.0):
         self.anims[llave] = imagesindexes
         self.anims["speed"] = speed
@@ -63,11 +71,13 @@ class Char(pygame.sprite.Sprite):
     def update_rect(self):
         self.rect.update(self.x,self.y,self.rect.width,self.rect.height)
 
-    def update_internals(self):
+    def update_internals_pos(self):
         self.update_pos()
-        self.Check_boundaries();
         self.update_rect()
         self.update_image()
+
+    def update_internals_pre(self):
+        self.Check_boundaries();
 
     def update(self,*args):
         pass 
