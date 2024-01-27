@@ -5,52 +5,61 @@ from src.core.functions import *
 from src.core.constants import *
 from src.core.spritesheets import *
 from src.core.Inputs import *
+import random
 
 from assets.base.soundplayer import SoundPlayer
 from src.core.Cam import *
 from assets.base.pj import *
 from assets.base.plataforma import *
 
-contador = 0;
+contador = 0
+
+plataformas = []
 
 mono = PJ(16,16,"chango")
 spri = Spritebatch("assets/sprites/player/player.png",(0,0,0))
-print(spri)
-mono.load_Sheet(spri,4,8)
+plataforma1 = plataforma(256,2,0,100,"p",5,[mono],spri,4,8)
+
+for i in range(10):
+    plataformas.append(plataforma(64,2,0,-140,"p",5,[mono],spri,4,8))
+    mono.load_Sheet(spri,4,8)
+
 cam = Cam(0,0,256,240)
 
-plat = plataforma(256,2,0,100,"p",5,[mono],spri,4,8);
+RenderGroup = pygame.sprite.Group()
+RenderGroupP = pygame.sprite.Group()
+RenderGroup.add(mono)
 
-plat.update_fisico_pos()
+# RENDERIZADO DE PLATAFORMAS
 
+plataforma1.update_fisico_pos()
+RenderGroup.add(plataforma1.imagen)
+RenderGroupP.add(plataforma1.factor)
 
-RenderGroup = pygame.sprite.Group();
-RenderGroupP = pygame.sprite.Group();
-RenderGroup.add(mono);
-RenderGroup.add(plat.imagen);
-RenderGroupP.add(plat.factor)
-"""
-plat = plataforma(256,2,"p",0,[]);
-plat.y = 10
-plat.x = 70
-plat.load_Sheet(spri,4,8)
-
-platF = plataforma(64,2,"p",5,[mono]);
-platF.y = 10
-platF.x = 70
-platF.update_internals_pos()
-"""
+for plat in plataformas:
+    plat.update_fisico_pos()
+    RenderGroup.add(plat.imagen)
+    RenderGroupP.add(plat.factor)
 
 def Draw(self):
     cam.surface.fill((0,50,200))
-    RenderGroup.draw(cam);
-    Global.screen.blit(cam.getSubSurface(),(0,0));
-    pass
+    RenderGroup.draw(cam)
+    Global.screen.blit(cam.getSubSurface(),(0,0))
 
 def Update(self):
-    RenderGroup.update();
-    RenderGroupP.update();
-    cam.LookAt(0,0);
+    RenderGroup.update()
+    RenderGroupP.update()
+    for plat in  plataformas:
+        plat.imagen.y = plat.imagen.y + 1
+        if plat.factor.y >= 140:
+            numero = random.randint(-1000, -120)
+            plat.imagen.y = numero
+
+        if plat.factor.x == 0:
+            plat.imagen.x = random.randint(1, 256)
+
+        plat.update_fisico_pos()
+    cam.LookAt(128,0)
     if(Controles.esc == True):
         sys.exit()
 
