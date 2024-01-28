@@ -1,4 +1,5 @@
 from src.core.Char import *
+import random
 
 class obstacGenerico(Char):
 
@@ -11,8 +12,6 @@ class obstacGenerico(Char):
         self.gravedad = 0.5
 
     def VSChar(self,char):
-        if((char.gy+char.salto)<=0):
-            return False;
         c = self.rect.colliderect(char.rect);
 #        print(self.rect,char.rect,c);
         return c;
@@ -29,7 +28,7 @@ class obstacGenerico(Char):
 
 class obstacChiste(obstacGenerico):
 
-    def Acc(Char):
+    def Acc(self,Char):
         self.chistaco.spawn(self.ListaSprites[random.randint(0,len(self.ListaSprites)-1)]);
 
     def __init__(self,W,H,nombre,Factor,Lista,chistaco,ListaSprites):

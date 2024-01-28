@@ -11,7 +11,7 @@ class State:
     def __init__(self,W,H):
         self.H = H
         self.W =W
-        self.Boundary_X_Min=0;
+        self.Boundary_X_Min=-1000;
         self.Boundary_X_Max=1600;
 
     def SetResolution(self,W,H):

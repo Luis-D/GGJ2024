@@ -21,4 +21,4 @@ class chiste(Char):
 
     def spawn(self,imago):
         self.load_Sheet(imago,1,1);
-        self.timer = 60*2
+        self.timer = 45

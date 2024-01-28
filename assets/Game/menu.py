@@ -29,6 +29,8 @@ mono = PJ(64,89,"chango")
 spri = Spritebatch("assets/sprites/player/stickman.png",(255,255,255))
 sprig = Spritebatch("assets/sprites/player/playergray.png",(0,0,0))
 mono.load_Sheet(spri,7,4)
+mono.x = 128-33
+mono.update_internals_pos()
 mono.set_anim("CaminataR",[1,2,5,6])
 mono.set_anim("CaminataL",[7,8,11,12])
 mono.set_anim("SaltoR",[3,4,5])
@@ -36,6 +38,8 @@ mono.set_anim("SaltoL",[9,10,11])
 mono.set_anim("CaidaR",[4,5,6])
 mono.set_anim("CaidaL",[10,11,12])
 plataforma1 = plataforma(64,2,0,0,"p",5,[mono],spri,4,8)
+plataforma1.imagen.x = 128-32
+plataforma1.update_fisico_pos();
 List.Lista.append(mono)
 List.Lista.append(plataforma1.imagen)
 
@@ -50,24 +54,34 @@ def show_score(score):
     score_text = font.render("Puntuación: {}".format(mono.puntuacion), True, (255, 255, 255))
     Global.screen.blit(score_text, (10, 10))
 
-for i in range(4):
-    p = plataforma(64,2,random.randint(1, 256),-(60*i),"p",5,[mono],spri,4,8)
+for i in range(5):
+    p = plataforma(64,2,random.randint(64, 300),-(60*i),"p",5,[mono],spri,4,8)
     plataformas.append(p)
     List.Lista.append(p.imagen)
+
 
 cam = Cam(0,0,480,320)
 
 chistaco = chiste(Global.W,Global.H,"Chiste",cam)
-
-fruta = obstacChiste(16,16,"chiste",1,[mono],chistaco,[spri])
-fruta.load_Sheet(sprig,4,8)
-List.Lista.append(fruta)
-
+chistaco.spawn(spri)
+chistaco.timer=0;
+obstacChistes = []
 
 RenderGroup = pygame.sprite.Group()
 RenderGroupP = pygame.sprite.Group()
+
+for i in range(3):
+    t = obstacChiste(16,16,"Chiste",1,[mono],chistaco,[spri])
+    t.y = 100000
+    t.update_internals_pos()
+    t.load_Sheet(sprig,4,8)
+    List.Lista.append(t)
+    obstacChistes.append(t)
+    RenderGroup.add(t);
+
+
+
 RenderGroup.add(mono)
-RenderGroup.add(fruta)
 
 
 # RENDERIZADO DE PLATAFORMAS
@@ -87,8 +101,6 @@ for plat in plataformas:
 def funcInfinito(self,Obj,x):
     Obj.y+=x
 
-chistaco.spawn(spri)
-
 def Draw(self):
     cam.surface.fill((0,50,200))
     RenderGroup.draw(cam)
@@ -101,14 +113,13 @@ def Update(self):
     global xxcounter
     global score  # Asegúrate de que la variable score esté definida globalmente
 
-    print(cam.getLowerBorder())
     RenderGroup.update()
     RenderGroupP.update()
     pcounter -= 1
     for plat in  plataformas:
         if (plat.imagen.y >= cam.getLowerBorder()):
             pcounter=1
-            xx =  random.randint(16, 256-64-32)
+            xx =  random.randint(-300, 500-64-32)
             rand = random.randint(1,100)
 
 
@@ -116,7 +127,13 @@ def Update(self):
             
         plat.update_fisico_pos()
 
-    print("->",cam.getLowerBorder(),cam.y,(Global.H/2)+(cam.h/2))
+#    print("->",cam.getLowerBorder(),cam.y,(Global.H/2)+(cam.h/2))
+
+    for t in obstacChistes:
+        if(t.y >= cam.getLowerBorder()):
+            t.accel_timer = 0
+            t.x = random.randint(-128,cam.w);
+            t.y = cam.getUpperBorder()-random.randint(128,360);
         
     if mono.y < (cam.getLowerBorder()-(cam.h/2)):
         cam.LookAt(128,mono.y)
