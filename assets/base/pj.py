@@ -39,7 +39,6 @@ class PJ(Char):
         if(self.vecy<0):
             self.puntuacion-=round(self.vecy);
         else:
-            if self.cur_anim[-1] == "R":
                 self.cur_anim = "CaidaR"
             else:
                 self.cur_anim = "CaidaL"

@@ -26,6 +26,7 @@ List = CharList()
 mono = PJ(64,89,"chango")
 spri = Spritebatch("assets/sprites/player/stickman.png",(255,255,255))
 sprig = Spritebatch("assets/sprites/player/playergray.png",(0,0,0))
+sprip = Spritebatch("assets/sprites/plataforma.png",(0,0,0))
 mono.load_Sheet(spri,7,4)
 mono.x = 128-33
 mono.update_internals_pos()
@@ -35,7 +36,7 @@ mono.set_anim("SaltoR",[3,4,5])
 mono.set_anim("SaltoL",[9,10,11])
 mono.set_anim("CaidaR",[4,5,6])
 mono.set_anim("CaidaL",[10,11,12])
-plataforma1 = plataforma(64,2,0,0,"p",5,[mono],spri,4,8)
+plataforma1 = plataforma(64,2,0,0,"p",5,[mono],sprip,4,8)
 plataforma1.imagen.x = 128-32
 plataforma1.update_fisico_pos();
 List.Lista.append(mono)
@@ -53,7 +54,7 @@ def show_score(score):
     Global.screen.blit(score_text, (10, 10))
 
 for i in range(7):
-    p = plataforma(64,2,random.randint(64, 300),-(60*i),"p",5,[mono],spri,4,8)
+    p = plataforma(64,2,random.randint(64, 300),-(60*i),"p",5,[mono],sprip,4,8)
     plataformas.append(p)
     List.Lista.append(p.imagen)
 
