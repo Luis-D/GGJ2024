@@ -7,6 +7,9 @@ class Cam:
 
     def getUpperBorder(self):
         return self.y + (Global.H/2)-(self.h/2)
+    
+    def getLeftBorder(self):
+        return self.x + (Global.W/2)-(self.w/2)
 
     def getLowerBorder(self):
         return self.y + (Global.H/2)+(self.h/2)

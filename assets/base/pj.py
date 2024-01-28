@@ -6,7 +6,7 @@ class PJ(Char):
     def __init__(self,W,H,nombre):
         super().__init__(W,H,nombre,"PJ");
         self.gravedad = 0.5
-        self.mov_speed = 1
+        self.mov_speed = 4
         self.accel_timer = 0;
         self.altitud = 0;
         self.puntuacion = 0;
@@ -18,20 +18,30 @@ class PJ(Char):
         self.salto = -factor
         self.accel_timer = 0
         self.gy = 0;
+        self.cur_anim = "SaltoR"
+        if self.vecx < 0:
+            self.cur_anim = "SaltoL"
+        
 
     def update(self):
-        print("ACTUALIZAR")
         if(Controles.der):
             self.vecx+=self.mov_speed;
+            self.cur_anim = "CaminataR"
         if(Controles.izq):
             self.vecx-=self.mov_speed
+            self.cur_anim = "CaminataL"
 
         self.update_internals_pre();
-        self.puntuacion += (-self.vecy);
 
 
         self.gy = (self.accel_timer*self.gravedad);
         self.vecy = self.gy + self.salto;
+        if(self.vecy<0):
+            self.puntuacion-=round(self.vecy);
+        else:
+            self.cur_anim = "CaidaR"
+            if(self.vecx<0):
+                self.cur_anim = "CaidaL"
 
         self.update_internals_pos();
 

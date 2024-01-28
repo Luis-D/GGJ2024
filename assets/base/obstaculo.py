@@ -30,8 +30,10 @@ class obstacGenerico(Char):
 class obstacChiste(obstacGenerico):
 
     def Acc(Char):
-        Char.puntuacion+=100;
+        self.chistaco.spawn(self.ListaSprites[random.randint(0,len(self.ListaSprites)-1)]);
 
-    def __init__(self,W,H,nombre,Factor,Lista):
-        super().__init__(W,H,nombre,Factor,Lista,self.Acc);
+    def __init__(self,W,H,nombre,Factor,Lista,chistaco,ListaSprites):
+        super().__init__(W,H,nombre,Factor,Lista,self.Acc)
+        self.chistaco = chistaco
+        self.ListaSprites = ListaSprites;
 
