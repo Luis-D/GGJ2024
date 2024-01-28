@@ -1,5 +1,6 @@
 import pygame
 from src.core.Char import *
+from assets.base.soundplayer import SoundPlayer
 
 class chiste(Char):
     def __init__(self,W,H,nombre,cam):
@@ -20,5 +21,7 @@ class chiste(Char):
         self.update_internals_pos()
 
     def spawn(self,imago):
+        SoundPlayer.pooling("assets/sounds/boom.ogg")
+        
         self.load_Sheet(imago,1,1);
         self.timer = 45

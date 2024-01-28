@@ -12,6 +12,7 @@ class PJ(Char):
         self.puntuacion = 0;
         self.salto = 0;
         self.gy = 0;
+        self.maxy = 0;
 
     def set_salto(self,factor):
         self.salto = -factor
@@ -37,8 +38,15 @@ class PJ(Char):
         self.gy = (self.accel_timer*self.gravedad);
         self.vecy = self.gy + self.salto;
         if(self.vecy<0):
-            self.puntuacion-=round(self.vecy);
+            if((self.y+self.vecy) < self.maxy):
+                self.maxy=self.y+self.vecy
+                self.puntuacion-=round(self.vecy);
+                if self.cur_anim[-1] == "R":
+                    self.cur_anim = "SonicR"
+                else:
+                    self.cur_anim = "SonicL"
         else:
+            if self.cur_anim[-1] == "R":
                 self.cur_anim = "CaidaR"
             else:
                 self.cur_anim = "CaidaL"

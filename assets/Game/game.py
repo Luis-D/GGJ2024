@@ -23,7 +23,7 @@ plataformas = []
 List = CharList() 
 
 
-mono = PJ(64,89,"chango")
+mono = PJ(64,88,"chango")
 spri = Spritebatch("assets/sprites/player/stickman.png",(255,255,255))
 sprig = Spritebatch("assets/sprites/player/playergray.png",(0,0,0))
 sprip = Spritebatch("assets/sprites/plataforma.png",(0,0,0))
@@ -36,7 +36,9 @@ mono.set_anim("SaltoR",[3,4,5])
 mono.set_anim("SaltoL",[9,10,11])
 mono.set_anim("CaidaR",[4,5,6])
 mono.set_anim("CaidaL",[10,11,12])
-plataforma1 = plataforma(64,2,0,0,"p",5,[mono],sprip,4,8)
+mono.set_anim("SonicR",[16,18,20])
+mono.set_anim("SonicL",[23,25,27])
+plataforma1 = plataforma(64,8,0,0,"p",5,[mono],sprip,4,8)
 plataforma1.imagen.x = 128-32
 plataforma1.update_fisico_pos();
 List.Lista.append(mono)
@@ -53,20 +55,19 @@ def show_score(score):
     score_text = font.render("Puntuación: {}".format(mono.puntuacion), True, (255, 255, 255))
     Global.screen.blit(score_text, (10, 10))
 
-for i in range(7):
-    p = plataforma(64,2,random.randint(64, 300),-(60*i),"p",5,[mono],sprip,4,8)
+for i in range(10):
+    p = plataforma(64,8,random.randint(64, 300),-(60*i),"p",5,[mono],sprip,4,8)
     plataformas.append(p)
     List.Lista.append(p.imagen)
 
 
-cam = Cam(0,0,640,480)
+cam = Cam(0,0,800,600)
 
 chistaco = chiste(640,480,"Chiste",cam)
 chistaco.spawn(spri)
 chistaco.timer=0;
 obstacChistes = []
 
-camera = Cam(16*15,0,256,240)
 RenderGroup = pygame.sprite.Group()
 RenderGroupP = pygame.sprite.Group()
 
@@ -101,12 +102,25 @@ for plat in plataformas:
 def funcInfinito(self,Obj,x):
     Obj.y+=x
 
+cieloInicial = [20,80,255]
+cieloFactor = 0
+cieloFinal = [0,40,255]
+
 def Draw(self):
-    cam.surface.fill((0,40,255))
+    global cieloInicial
+    global cieloFactor
+    global cieloFinal
+    cam.surface.fill((cieloInicial[0]-((cieloFinal[0]-cieloInicial[0])*cieloFactor),cieloInicial[1]-((cieloFinal[1]-cieloInicial[1])*cieloFactor),cieloInicial[2]-((cieloFinal[2]-cieloInicial[2])*cieloFactor) ))
     RenderGroup.draw(cam)
     Global.screen.blit(cam.getSubSurface(),(0,0))
     # Mostrar el marcador en la pantalla
     show_score(score)
+    try:
+        cieloFactor = (mono.puntuacion.y/1000)
+        if(cieloFactor>1.0):
+            cieloFactor = 1.0
+    except:
+        cieloFactor = 0;
 
 def Update(self):
     global pcounter
