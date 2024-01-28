@@ -15,7 +15,7 @@ from assets.base.fruta import *
 import random
 
 
-image = pygame.transform.scale(load_image(ASSETS_DIR+"sprites/lose1.jpg"), (640, 480))
+image = pygame.transform.scale(load_image(ASSETS_DIR+"sprites/credits.png"), (640, 480))
 
 camera = Cam(0,0,640,480)
 
