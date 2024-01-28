@@ -14,12 +14,12 @@ class PJ(Char):
         self.gy = 0;
 
     def set_salto(self,factor):
-        print("NOOOO")
         self.salto = -factor
         self.accel_timer = 0
         self.gy = 0;
-        self.cur_anim = "SaltoR"
-        if self.vecx < 0:
+        if self.cur_anim[-1] == "R":
+            self.cur_anim = "SaltoR"
+        else:
             self.cur_anim = "SaltoL"
         
 
@@ -39,8 +39,9 @@ class PJ(Char):
         if(self.vecy<0):
             self.puntuacion-=round(self.vecy);
         else:
-            self.cur_anim = "CaidaR"
-            if(self.vecx<0):
+            if self.cur_anim[-1] == "R":
+                self.cur_anim = "CaidaR"
+            else:
                 self.cur_anim = "CaidaL"
 
         self.update_internals_pos();

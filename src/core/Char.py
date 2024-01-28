@@ -5,6 +5,8 @@ class Char(pygame.sprite.Sprite):
     def __init__(self,W,H,nombre,Tipo):
         pygame.sprite.Sprite.__init__(self)
         self.Tipo = Tipo
+        self.w = W
+        self.H = H
         self.x = 0
         self.y = 0
         self.vecx = 0
@@ -25,10 +27,8 @@ class Char(pygame.sprite.Sprite):
         arr = []
         for h in range(H):
             for w in range(W):
-                print(str(w)+","+str(h))
                 arr.append(image.image_at(w*self.rect.width,h*self.rect.height,self.rect.width,self.rect.height))
-        self.set_images(arr);
-        print("AAAH",arr)
+        self.set_images(arr)
 
     def set_anim(self,llave,imagesindexes,speed=1.0):
         self.anims[llave] = imagesindexes
@@ -54,7 +54,6 @@ class Char(pygame.sprite.Sprite):
             
           
         except Exception as e: 
-            print(e)
             self.image = self.images[0]
  
 

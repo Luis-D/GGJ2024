@@ -7,6 +7,8 @@ class State:
     timer = 120
     width_t = 0
     height_t = 0
+    width_x = 0
+    height_x = 0
 
     def __init__(self,W,H):
         self.H = H

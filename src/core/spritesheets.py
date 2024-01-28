@@ -12,7 +12,6 @@ class Spritebatch:
             img = self.hashtable[hsh]
             return img
         except KeyError:
-            print("Nuevo pedazo de batch")
             rect = pygame.Rect((x,y,dx,dy))
             image = pygame.Surface(rect.size).convert()
             image.blit(self.sheet,(0,0),rect)

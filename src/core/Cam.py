@@ -1,8 +1,6 @@
 import pygame
 from src.core.globalscope import *
 
-print("Uy")
-
 class Cam:
 
     def getUpperBorder(self):
@@ -10,6 +8,8 @@ class Cam:
     
     def getLeftBorder(self):
         return self.x + (Global.W/2)-(self.w/2)
+    def getRightBorder(self):
+        return self.x + (Global.W/2)+(self.w/2)
 
     def getLowerBorder(self):
         return self.y + (Global.H/2)+(self.h/2)

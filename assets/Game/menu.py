@@ -1,154 +1,120 @@
 import pygame
 from src.core.globalscope import *
-
+from pygame.locals import *
 from src.core.functions import *
 from src.core.constants import *
 from src.core.spritesheets import *
-import math
 from src.core.Inputs import *
-import random
-
+from src.interfaces.menu import *
 from assets.base.soundplayer import SoundPlayer
 from src.core.Cam import *
-from assets.base.pj import *
-from assets.base.plataforma import *
-from assets.base.obstaculo import *
-from assets.base.chiste import *
-from assets.base.allObjects import *
+from assets.base.mandril import *
 
-# variables globales
-score = 0
-contador = 0
-xxcounter = 0
-pcounter = 1
-plataformas = []
-List = CharList() 
+import sys
 
 
-mono = PJ(64,89,"chango")
-spri = Spritebatch("assets/sprites/player/stickman.png",(255,255,255))
-sprig = Spritebatch("assets/sprites/player/playergray.png",(0,0,0))
-mono.load_Sheet(spri,7,4)
-mono.x = 128-33
-mono.update_internals_pos()
-mono.set_anim("CaminataR",[1,2,5,6])
-mono.set_anim("CaminataL",[7,8,11,12])
-mono.set_anim("SaltoR",[3,4,5])
-mono.set_anim("SaltoL",[9,10,11])
-mono.set_anim("CaidaR",[4,5,6])
-mono.set_anim("CaidaL",[10,11,12])
-plataforma1 = plataforma(64,2,0,0,"p",5,[mono],spri,4,8)
-plataforma1.imagen.x = 128-32
-plataforma1.update_fisico_pos();
-List.Lista.append(mono)
-List.Lista.append(plataforma1.imagen)
+def comenzar_nuevo_juego():
+    Destroy()
+    SoundPlayer.stop_pooling()
+    print (" Función que muestra un nuevo juego.")
+    mod = importlib.import_module("assets.Game.game")
+    importlib.reload(mod)
+    mod.Init()
+    mod.Update(None)
 
-# Definiciòn #
+def mostrar_opciones():
+    print (" Función que muestra otro menú de opciones.")
 
+def creditos():
+    print (" Función que muestra los creditos del programa.")
+    Destroy()
+    mod = importlib.import_module("assets.Game.creditos")
+    importlib.reload(mod)
+    mod.Init()
+    mod.Update(None)
 
-# marcador de score
-font = pygame.font.Font(None, 36)
+def salir_del_programa():
+    import sys
+    print (" Gracias por utilizar este programa.")
+    sys.exit(0)
 
-# Función para mostrar el marcador en la pantalla
-def show_score(score):
-    score_text = font.render("Puntuación: {}".format(mono.puntuacion), True, (255, 255, 255))
-    Global.screen.blit(score_text, (10, 10))
+salir = False
+opciones = [
+        ("Jugar", comenzar_nuevo_juego),
+        ("Opciones", mostrar_opciones),
+        ("Creditos", creditos),
+        ("Salir", salir_del_programa)
+    ]
+pygame.font.init()
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+fondo = load_image(ASSETS_DIR+"sprites/fondo.jpg", True).convert()
+fondo = pygame.transform.scale(fondo, (SCREEN_WIDTH, SCREEN_HEIGHT))
+logo = load_image(ASSETS_DIR+"logo/logo.png", True)
+logo = pygame.transform.scale(logo, (SCREEN_WIDTH, SCREEN_HEIGHT))
+#pygame.mixer.music.load(ASSETS_DIR+"sounds/menu.ogg")
+menu = Menu(opciones)
 
-for i in range(5):
-    p = plataforma(64,2,random.randint(64, 300),-(60*i),"p",5,[mono],spri,4,8)
-    plataformas.append(p)
-    List.Lista.append(p.imagen)
-
-
-cam = Cam(0,0,480,320)
-
-chistaco = chiste(Global.W,Global.H,"Chiste",cam)
-chistaco.spawn(spri)
-chistaco.timer=0;
-obstacChistes = []
-
+camera = Cam(16*15,0,256,240)
 RenderGroup = pygame.sprite.Group()
-RenderGroupP = pygame.sprite.Group()
 
-for i in range(3):
-    t = obstacChiste(16,16,"Chiste",1,[mono],chistaco,[spri])
-    t.y = 100000
-    t.update_internals_pos()
-    t.load_Sheet(sprig,4,8)
-    List.Lista.append(t)
-    obstacChistes.append(t)
-    RenderGroup.add(t);
-
-
-
-RenderGroup.add(mono)
+anim2 = False
+end = False
+fast = 45
+def DrawBG(self):
+    global anim2
+    global end
+    global fast
+    global fondo
+    screen.fill((0,0,0))
 
 
-# RENDERIZADO DE PLATAFORMAS
-plataforma1.update_fisico_pos()
-RenderGroup.add(plataforma1.imagen)
-RenderGroup.add(chistaco)
-RenderGroupP.add(plataforma1.factor)
+    if(anim2 and end == False):     
+        
+        Global.width_t = Global.width_t-(Global.W/80)
+        Global.height_t = Global.height_t-(Global.H/80)
+        if(Global.width_t <= 0 or Global.height_t <= 0):
+            Global.width_t=0
+            Global.height_t=0
+            anim2=False
+            end = True
+            fast = 120
+            fondo = load_image(ASSETS_DIR+"sprites/fondo.jpg", True).convert()
+            fondo = pygame.transform.scale(fondo, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
-for plat in plataformas:
-    plat.update_fisico_pos()
-    RenderGroup.add(plat.imagen)
-    RenderGroupP.add(plat.factor)
-    List.Lista.append(plat.imagen)
+    if(anim2==False ):
+        Global.width_t = Global.width_t+(Global.W/fast)
+        Global.height_t = Global.height_t+(Global.H/fast)
+        if(Global.width_t>=SCREEN_WIDTH):
+            anim2=True
 
+    screen.blit(pygame.transform.scale(fondo, (Global.width_t, Global.height_t)),(0,0))
+    screen.blit(pygame.transform.scale(logo, (SCREEN_WIDTH, Global.height_t)),(0,0))
 
+    if Global.timer == 0:
+        menu.imprimir(screen)
+    camera.surface.fill((0,0,0))
+    RenderGroup.draw(camera)
+    sub = camera.getSubSurface()
+    sub.set_colorkey((0,0,0))
+    screen.blit(sub,(0,0))
 
-def funcInfinito(self,Obj,x):
-    Obj.y+=x
-
-def Draw(self):
-    cam.surface.fill((0,50,200))
-    RenderGroup.draw(cam)
-    Global.screen.blit(cam.getSubSurface(),(0,0))
-    # Mostrar el marcador en la pantalla
-    show_score(score)
+def Destroy():
+    RenderGroup.empty()
 
 def Update(self):
-    global pcounter
-    global xxcounter
-    global score  # Asegúrate de que la variable score esté definida globalmente
-
     RenderGroup.update()
-    RenderGroupP.update()
-    pcounter -= 1
-    for plat in  plataformas:
-        if (plat.imagen.y >= cam.getLowerBorder()):
-            pcounter=1
-            xx =  random.randint(-300, 500-64-32)
-            rand = random.randint(1,100)
-
-
-            plat.imagen.y, plat.imagen.x = cam.getUpperBorder(),xx
-            
-        plat.update_fisico_pos()
-
-#    print("->",cam.getLowerBorder(),cam.y,(Global.H/2)+(cam.h/2))
-
-    for t in obstacChistes:
-        if(t.y >= cam.getLowerBorder()):
-            t.accel_timer = 0
-            t.x = random.randint(-128,cam.w);
-            t.y = cam.getUpperBorder()-random.randint(128,360);
-        
-    if mono.y < (cam.getLowerBorder()-(cam.h/2)):
-        cam.LookAt(128,mono.y)
-        List.applyFunc(funcInfinito,(cam.getLowerBorder()-(cam.h/2)-mono.y))
-
     if(Controles.esc == True):
         sys.exit()
-
-
+    if Global.timer == 0:
+        menu.actualizar()
+    else:
+        Global.timer = Global.timer-1
 
 def Init():
-#    SoundPlayer.pooling(ASSETS_DIR+"sounds/menu.ogg")    
+    SoundPlayer.pooling(ASSETS_DIR+"sounds/menu.ogg")
     pygame.event.wait()
     Global.timer = 120
-    Global.Draw = Draw
+    Global.Draw = DrawBG
     Global.Update = Update
     Global.height_t = 0
     Global.height_tt = 0
