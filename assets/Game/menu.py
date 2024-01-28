@@ -28,7 +28,7 @@ def mostrar_opciones():
 def creditos():
     print (" Función que muestra los creditos del programa.")
     Destroy()
-    mod = importlib.import_module("assets.Game.creditos")
+    mod = importlib.import_module(CREDITS_ARGM)
     importlib.reload(mod)
     mod.Init()
     mod.Update(None)
@@ -80,7 +80,7 @@ def DrawBG(self):
             end = True
             fast = 120
             fondo = load_image(ASSETS_DIR+"sprites/WIP Fondo.png", True).convert()
-            logo = load_image(ASSETS_DIR+"sprites/Xd.png", True)
+            logo = load_image(ASSETS_DIR+"sprites/logo.png", True)
             fondo = pygame.transform.scale(fondo, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
     if(anim2==False ):
@@ -113,6 +113,14 @@ def Update(self):
         Global.timer = Global.timer-1
 
 def Init():
+    global anim2
+    global end
+    global fast
+    global fondo
+    global logo
+    anim2 = False
+    end = False
+    fast = 45
     SoundPlayer.pooling(ASSETS_DIR+"sounds/menu.ogg")
     pygame.event.wait()
     Global.timer = 120
@@ -121,3 +129,5 @@ def Init():
     Global.height_t = 0
     Global.height_tt = 0
     Global.width_t = 0
+    fondo = load_image(ASSETS_DIR+"sprites/fondochangorigen.png", True).convert()
+    logo = load_image(ASSETS_DIR+"logo/logo.png", True)

@@ -12,6 +12,7 @@ class plataformaMini(Char):
         self.collider = True
         self.broken = False
         self.Lista = Lista
+        self.original = Spritebatch("assets/sprites/plataforma.png", (0,0,0))
         self.vidrio = Spritebatch("assets/sprites/vidrio.png",(0,0,0))
         self.trampolin = Spritebatch("assets/sprites/spring.png",(0,0,0))
         self.vidrio_roto = Spritebatch("assets/sprites/brokenGlass.png",(0,0,0))
@@ -80,3 +81,5 @@ class plataforma(Char):
             self.factor.collider = False
             # CARGAR EL SPRITE DE VIDRIO AQUI
             self.imagen.load_Sheet(self.factor.vidrio,self.spritesheet_h,self.spritesheet_w)
+        else:
+            self.imagen.load_Sheet(self.factor.original,self.spritesheet_h,self.spritesheet_w)
