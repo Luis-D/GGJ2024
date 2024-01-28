@@ -25,9 +25,7 @@ def gpad_process(event,cond,boolean):
         if(event.key == pygame.K_LCTRL):
             Controles.can = boolean
 
-
-def E_process():
-
+def for_event():
     for event in pygame.event.get():
         gpad_process(event,pygame.KEYDOWN,True)
         gpad_process(event,pygame.KEYUP,False)
@@ -35,5 +33,8 @@ def E_process():
             print("Muerto")
             sys.exit()
 
-
-
+def E_process():
+    try:
+        for_event()
+    except:
+        for_event()

@@ -9,12 +9,12 @@ from src.core.globalscope import *
 from src.core.Events import *
 
 
-
 def main():
     pygame.init()
     pygame.mixer.set_num_channels(50)
-#    pygame.mixer.init()
-    #screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+
+    #    pygame.mixer.init()
+    # screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption(TITLE)
     try:
         Global.Init(sys.argv[1])

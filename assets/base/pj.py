@@ -18,6 +18,7 @@ class PJ(Char):
         self.salto = -factor
         self.accel_timer = 0
         self.gy = 0;
+        
 
     def update(self):
         print("ACTUALIZAR")
@@ -27,11 +28,12 @@ class PJ(Char):
             self.vecx-=self.mov_speed
 
         self.update_internals_pre();
-        self.puntuacion += (-self.vecy);
 
 
         self.gy = (self.accel_timer*self.gravedad);
         self.vecy = self.gy + self.salto;
+        if(self.vecy<0):
+            self.puntuacion-=round(self.vecy);
 
         self.update_internals_pos();
 
