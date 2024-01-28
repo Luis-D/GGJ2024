@@ -23,5 +23,6 @@ class chiste(Char):
     def spawn(self,imago):
         SoundPlayer.pooling("assets/sounds/boom.ogg")
         
-        self.load_Sheet(imago,1,1);
-        self.timer = 45
+        if(self.timer <= 0):
+            self.load_Sheet(imago,1,1);
+            self.timer = 15

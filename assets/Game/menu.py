@@ -47,7 +47,7 @@ opciones = [
     ]
 pygame.font.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-fondo = load_image(ASSETS_DIR+"sprites/fondo.jpg", True).convert()
+fondo = load_image(ASSETS_DIR+"sprites/fondochangorigen.png", True).convert()
 fondo = pygame.transform.scale(fondo, (SCREEN_WIDTH, SCREEN_HEIGHT))
 logo = load_image(ASSETS_DIR+"logo/logo.png", True)
 logo = pygame.transform.scale(logo, (SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -65,6 +65,7 @@ def DrawBG(self):
     global end
     global fast
     global fondo
+    global logo
     screen.fill((0,0,0))
 
 
@@ -78,7 +79,8 @@ def DrawBG(self):
             anim2=False
             end = True
             fast = 120
-            fondo = load_image(ASSETS_DIR+"sprites/fondo.jpg", True).convert()
+            fondo = load_image(ASSETS_DIR+"sprites/WIP Fondo.png", True).convert()
+            logo = load_image(ASSETS_DIR+"sprites/Xd.png", True)
             fondo = pygame.transform.scale(fondo, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
     if(anim2==False ):

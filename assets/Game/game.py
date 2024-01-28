@@ -63,19 +63,35 @@ for i in range(10):
     plataformas.append(p)
     List.Lista.append(p.imagen)
 
+RenderGroup = pygame.sprite.RenderUpdates()
+RenderGroupP = pygame.sprite.Group()
+RenderGroupChiste = pygame.sprite.Group()
 
 cam = Cam(0,0,800,600)
 
 chistaco = chiste(640,480,"Chiste",cam)
+chistaco.x = 64
+chistaco.update_internals_pos()
 chistaco.spawn(spri)
 chistaco.timer=0
 obstacChistes = []
 
-RenderGroup = pygame.sprite.Group()
-RenderGroupP = pygame.sprite.Group()
+RenderGroupChiste.add(chistaco)
+
+listamemes = [Spritebatch("assets/sprites/akira.png",(255,0,255)),
+              Spritebatch("assets/sprites/gatollorando.png",(255,0,255)),
+              Spritebatch("assets/sprites/larry4.png",(255,0,255)),
+              Spritebatch("assets/sprites/cato.png",(255,0,255)),
+              Spritebatch("assets/sprites/cato2.png",(255,0,255)),
+              Spritebatch("assets/sprites/mrincreible.png",(255,0,255)),
+              Spritebatch("assets/sprites/rock.png",(255,0,255)),
+              Spritebatch("assets/sprites/stripper.png",(255,0,255)),
+              Spritebatch("assets/sprites/shrek.png",(255,0,255)),
+              Spritebatch("assets/sprites/chopper.png",(255,0,255))
+              ]
 
 for i in range(3):
-    t = obstacChiste(16,16,"Chiste",1,[mono],chistaco,[spri])
+    t = obstacChiste(16,16,"Chiste",1,[mono],chistaco,listamemes)
     t.y = 100000
     t.update_internals_pos()
     t.load_Sheet(sprig,4,8)
@@ -90,7 +106,6 @@ RenderGroup.add(mono)
 # RENDERIZADO DE PLATAFORMAS
 plataforma1.update_fisico_pos()
 RenderGroup.add(plataforma1.imagen)
-RenderGroup.add(chistaco)
 RenderGroupP.add(plataforma1.factor)
 
 for plat in plataformas:
@@ -113,6 +128,7 @@ def Draw(self):
     global cieloFinal
     cam.surface.fill((cieloInicial[0]+((cieloFinal[0]-cieloInicial[0])*cieloFactor),cieloInicial[1]+((cieloFinal[1]-cieloInicial[1])*cieloFactor),cieloInicial[2]+((cieloFinal[2]-cieloInicial[2])*cieloFactor) ))
     RenderGroup.draw(cam)
+    RenderGroupChiste.draw(cam)
     Global.screen.blit(cam.getSubSurface(),(0,0))
     # Mostrar el marcador en la pantalla
     show_score(score)
@@ -133,6 +149,7 @@ def Update(self):
        mono.x = cam.getRightBorder()-mono.w
 
     RenderGroup.update()
+    RenderGroupChiste.update()
     RenderGroupP.update()
     pcounter -= 1
     for plat in  plataformas:

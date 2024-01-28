@@ -13,8 +13,8 @@ class plataformaMini(Char):
         self.broken = False
         self.Lista = Lista
         self.vidrio = Spritebatch("assets/sprites/vidrio.png",(0,0,0))
-        self.trampolin = Spritebatch("assets/sprites/plataforma.png",(0,0,0))
-        self.vidrio_roto = Spritebatch("assets/sprites/plataforma.png",(0,0,0))
+        self.trampolin = Spritebatch("assets/sprites/spring.png",(0,0,0))
+        self.vidrio_roto = Spritebatch("assets/sprites/brokenGlass.png",(0,0,0))
 
     def VSChar(self,char):
         if char.gy + char.salto <= 0:
