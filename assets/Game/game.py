@@ -103,25 +103,22 @@ for plat in plataformas:
 def funcInfinito(self,Obj,x):
     Obj.y+=x
 
-cieloInicial = [20,80,255]
-cieloFactor = 0
-cieloFinal = [0,40,255]
+cieloInicial = [240,220,255]
+cieloFactor = 0.9
+cieloFinal = [0,20,128]
 
 def Draw(self):
     global cieloInicial
     global cieloFactor
     global cieloFinal
-    cam.surface.fill((cieloInicial[0]-((cieloFinal[0]-cieloInicial[0])*cieloFactor),cieloInicial[1]-((cieloFinal[1]-cieloInicial[1])*cieloFactor),cieloInicial[2]-((cieloFinal[2]-cieloInicial[2])*cieloFactor) ))
+    cam.surface.fill((cieloInicial[0]+((cieloFinal[0]-cieloInicial[0])*cieloFactor),cieloInicial[1]+((cieloFinal[1]-cieloInicial[1])*cieloFactor),cieloInicial[2]+((cieloFinal[2]-cieloInicial[2])*cieloFactor) ))
     RenderGroup.draw(cam)
     Global.screen.blit(cam.getSubSurface(),(0,0))
     # Mostrar el marcador en la pantalla
     show_score(score)
-    try:
-        cieloFactor = (mono.puntuacion.y/1000)
-        if(cieloFactor>1.0):
-            cieloFactor = 1.0
-    except:
-        cieloFactor = 0;
+    cieloFactor = (mono.puntuacion/5000)
+    if(cieloFactor>1.0):
+        cieloFactor = 1.0
 
 def Update(self):
     global pcounter

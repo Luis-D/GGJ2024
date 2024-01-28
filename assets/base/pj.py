@@ -22,6 +22,11 @@ class PJ(Char):
             self.cur_anim = "SaltoR"
         else:
             self.cur_anim = "SaltoL"
+        if(factor >=6):
+            if self.cur_anim[-1] == "R":
+                self.cur_anim = "SonicR"
+            else:
+                self.cur_anim = "SonicL"
         
 
     def update(self):
@@ -41,10 +46,6 @@ class PJ(Char):
             if((self.y+self.vecy) < self.maxy):
                 self.maxy=self.y+self.vecy
                 self.puntuacion-=round(self.vecy);
-                if self.cur_anim[-1] == "R":
-                    self.cur_anim = "SonicR"
-                else:
-                    self.cur_anim = "SonicL"
         else:
             if self.cur_anim[-1] == "R":
                 self.cur_anim = "CaidaR"
