@@ -20,7 +20,7 @@ contador = 0
 xxcounter = 0
 pcounter = 1
 plataformas = []
-List = CharList() 
+List = CharList()
 
 
 mono = PJ(64,88,"chango")
@@ -40,9 +40,12 @@ mono.set_anim("SonicR",[16,18,20])
 mono.set_anim("SonicL",[23,25,27])
 plataforma1 = plataforma(64,8,0,0,"p",5,[mono],sprip,4,8)
 plataforma1.imagen.x = 128-32
-plataforma1.update_fisico_pos();
+plataforma1.update_fisico_pos()
 List.Lista.append(mono)
 List.Lista.append(plataforma1.imagen)
+List.Lista.append(mono)
+
+
 
 # Definiciòn #
 
@@ -65,7 +68,7 @@ cam = Cam(0,0,800,600)
 
 chistaco = chiste(640,480,"Chiste",cam)
 chistaco.spawn(spri)
-chistaco.timer=0;
+chistaco.timer=0
 obstacChistes = []
 
 RenderGroup = pygame.sprite.Group()
@@ -78,12 +81,11 @@ for i in range(3):
     t.load_Sheet(sprig,4,8)
     List.Lista.append(t)
     obstacChistes.append(t)
-    RenderGroup.add(t);
+    RenderGroup.add(t)
 
 
 
 RenderGroup.add(mono)
-
 
 # RENDERIZADO DE PLATAFORMAS
 plataforma1.update_fisico_pos()
@@ -96,7 +98,6 @@ for plat in plataformas:
     RenderGroup.add(plat.imagen)
     RenderGroupP.add(plat.factor)
     List.Lista.append(plat.imagen)
-
 
 
 def funcInfinito(self,Obj,x):
@@ -144,6 +145,7 @@ def Update(self):
             rand = random.randint(1,100)
 
             plat.imagen.y, plat.imagen.x = cam.getUpperBorder(),xx
+            plat.setRandomAttr()
             
         plat.update_fisico_pos()
 
@@ -152,8 +154,8 @@ def Update(self):
     for t in obstacChistes:
         if(t.y >= cam.getLowerBorder()):
             t.accel_timer = 0
-            t.x = random.randint(-128,cam.w);
-            t.y = cam.getUpperBorder()-random.randint(128,360);
+            t.x = random.randint(-128,cam.w)
+            t.y = cam.getUpperBorder()-random.randint(128,360)
         
     if mono.y < (cam.getLowerBorder()-(cam.h/2)):
         cam.LookAt(128,mono.y)
