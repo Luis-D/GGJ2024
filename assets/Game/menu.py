@@ -21,8 +21,8 @@ plataformas = []
 List = CharList() 
 
 
-mono = PJ(16,16,"chango")
-spri = Spritebatch("assets/sprites/player/player.png",(0,0,0))
+mono = PJ(90,100,"chango")
+spri = Spritebatch("assets/sprites/player/stickman.png",(0,0,0))
 sprig = Spritebatch("assets/sprites/player/playergray.png",(0,0,0))
 print(spri)
 mono.load_Sheet(spri,4,8)
