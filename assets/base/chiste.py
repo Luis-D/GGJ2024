@@ -13,7 +13,7 @@ class chiste(Char):
         self.update_internals_pre()
         self.y = self.cam.getUpperBorder()
         if(self.timer > 0):
-            self.x = self.cam.getLeftBorder()
+            self.x = self.cam.getLeftBorder()+70
 
             self.timer -=1
         else:

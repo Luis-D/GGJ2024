@@ -87,7 +87,8 @@ listamemes = [Spritebatch("assets/sprites/akira.png",(255,0,255)),
               Spritebatch("assets/sprites/rock.png",(255,0,255)),
               Spritebatch("assets/sprites/stripper.png",(255,0,255)),
               Spritebatch("assets/sprites/shrek.png",(255,0,255)),
-              Spritebatch("assets/sprites/chopper.png",(255,0,255))
+              Spritebatch("assets/sprites/chopper.png",(255,0,255)),
+              Spritebatch("assets/sprites/kokudrip.png",(255,0,255))
               ]
 
 for i in range(3):
@@ -137,8 +138,10 @@ def Draw(self):
         cieloFactor = 1.0
 
 def Update(self):
+    global listamemes
     global pcounter
     global xxcounter
+    global chistaco
     global score  # Asegúrate de que la variable score esté definida globalmente
 
     if(mono.y > cam.getLowerBorder()):
@@ -174,6 +177,10 @@ def Update(self):
     if mono.y < (cam.getLowerBorder()-(cam.h/2)):
         cam.LookAt(128,mono.y)
         List.applyFunc(funcInfinito,(cam.getLowerBorder()-(cam.h/2)-mono.y))
+
+    if mono.y> cam.getLowerBorder():
+        chistaco.spawn(listamemes[random.randint(0,len(listamemes)-1)]);
+
     if(Controles.esc == True):
         sys.exit()
 
