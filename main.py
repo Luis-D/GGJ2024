@@ -20,6 +20,7 @@ def main():
         Global.Init(sys.argv[1])
     except:
         Global.Init(MENU_ARGM)
+        #Global.Init(GAME_ARGM)
 
     Clock = pygame.time.Clock()
 

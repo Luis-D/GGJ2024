@@ -14,13 +14,11 @@ class PJ(Char):
         self.gy = 0;
 
     def set_salto(self,factor):
-        print("NOOOO")
         self.salto = -factor
         self.accel_timer = 0
         self.gy = 0;
 
     def update(self):
-        print("ACTUALIZAR")
         if(Controles.der):
             self.vecx+=self.mov_speed;
         if(Controles.izq):

@@ -1,8 +1,6 @@
 import pygame
 from src.core.globalscope import *
 
-print("Uy")
-
 class Cam:
 
     def getUpperBorder(self):
