@@ -4,6 +4,6 @@ class CharList:
     def __init__(self):
         self.Lista = []
 
-    def applyFunc(self,func):
+    def applyFunc(self,func,param):
         for x in self.Lista:
-            func(self,x);
+            func(self,x,param);

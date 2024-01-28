@@ -4,6 +4,7 @@ from src.core.globalscope import *
 from src.core.functions import *
 from src.core.constants import *
 from src.core.spritesheets import *
+import math
 from src.core.Inputs import *
 import random
 
@@ -25,13 +26,13 @@ spri = Spritebatch("assets/sprites/player/player.png",(0,0,0))
 sprig = Spritebatch("assets/sprites/player/playergray.png",(0,0,0))
 print(spri)
 mono.load_Sheet(spri,4,8)
-plataforma1 = plataforma(256,2,0,100,"p",5,[mono],spri,4,8)
+plataforma1 = plataforma(64,2,0,0,"p",5,[mono],spri,4,8)
 
 List.Lista.append(mono)
 List.Lista.append(plataforma1.imagen)
 
-for i in range(10):
-    p = plataforma(64,2,0,-140,"p",5,[mono],spri,4,8)
+for i in range(4):
+    p = plataforma(64,2,random.randint(1, 256),-(60*i),"p",5,[mono],spri,4,8)
     plataformas.append(p)
     List.Lista.append(p.imagen)
 
@@ -59,8 +60,8 @@ for plat in plataformas:
     List.Lista.append(plat.imagen)
 
 
-def funcInfinito(self,Obj):
-    Obj.y+=0.2;
+def funcInfinito(self,Obj,x):
+    Obj.y+=x
 
 
 def Draw(self):
@@ -68,25 +69,36 @@ def Draw(self):
     RenderGroup.draw(cam)
     Global.screen.blit(cam.getSubSurface(),(0,0))
 
+xxcounter = 0
+pcounter = 1
+
 def Update(self):
+    global pcounter
+    global xxcounter
+    print(cam.getLowerBorder())
     RenderGroup.update()
     RenderGroupP.update()
+    pcounter -= 1
     for plat in  plataformas:
-        plat.imagen.y = plat.imagen.y + 1
-        if plat.factor.y >= 140:
-            numero = random.randint(-1000, -120)
-            plat.imagen.y = numero
+        if (plat.imagen.y >= cam.getLowerBorder()):
+            pcounter=1
+            print("sdsdss")
+            xx =  random.randint(16, 256-64-32)
+            rand = random.randint(1,100)
 
-        if plat.factor.x == 0:
-            plat.imagen.x = random.randint(1, 256)
 
+            plat.imagen.y, plat.imagen.x = cam.getUpperBorder(),xx
+            
         plat.update_fisico_pos()
-    cam.LookAt(128,0)
 
-    if(mono.y < 0):
+    
+    print("->",cam.getLowerBorder(),cam.y,(Global.H/2)+(cam.h/2))
+        
+    if mono.y < (cam.getLowerBorder()-(cam.h/2)):
         cam.LookAt(128,mono.y)
+        List.applyFunc(funcInfinito,(cam.getLowerBorder()-(cam.h/2)-mono.y))
 
-    List.applyFunc(funcInfinito);
+    
 
     if(Controles.esc == True):
         sys.exit()
