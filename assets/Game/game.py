@@ -179,13 +179,13 @@ def Update(self):
         List.applyFunc(funcInfinito,(cam.getLowerBorder()-(cam.h/2)-mono.y))
 
     if mono.y> cam.getLowerBorder():
-        chistaco.spawn(listamemes[random.randint(0,len(listamemes)-1)]);
+        Global.Init(GAMEOVER_ARGM)
 
     if(Controles.esc == True):
         sys.exit()
 
 def Init():
-    SoundPlayer.pooling(ASSETS_DIR+"sounds/menu.ogg")
+    SoundPlayer.pooling(ASSETS_DIR+"sounds/level.ogg")
     pygame.event.wait()
     Global.timer = 120
     Global.Draw = Draw

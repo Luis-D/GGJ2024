@@ -19,8 +19,9 @@ def main():
     try:
         Global.Init(sys.argv[1])
     except:
-        Global.Init(MENU_ARGM)
-        #Global.Init(GAME_ARGM)
+        #Global.Init(GAMEOVER_ARGM)
+        Global.Init(GAME_ARGM)
+        #Global.Init(MENU_ARGM)
 
     Clock = pygame.time.Clock()
 

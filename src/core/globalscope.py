@@ -1,6 +1,7 @@
 import importlib
 import pygame
 from src.core.constants import *
+from src.core.Inputs import *
 
 class State:
 
@@ -33,8 +34,9 @@ class State:
         pass
     def Init(self,File):
         self.SetResolution(self.W,self.H)
-        mod = importlib.import_module(File)
+        mod = importlib.import_module(File)  
         mod.Init()
+        Controles.esc = False
 
 Global = State(SCREEN_WIDTH,SCREEN_HEIGHT)
 print("Global Init")
